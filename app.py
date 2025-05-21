@@ -1120,7 +1120,7 @@ if 'trade_results_df' in st.session_state and \
     st.markdown("### 6. วิเคราะห์ตามเวลาเข้าเทรด (Entry Time)")
     bin_size_entry_time_input = st.number_input(
         "เลือกขนาด Bin สำหรับเวลาเข้าเทรด (นาที):", 
-        min_value=1, max_value=120, value=10, step=5, 
+        min_value=1, max_value=120, value=10, step=1, 
         key="bin_entry_time",
         help="ขนาดของแต่ละช่วงเวลาที่จะใช้ในการจัดกลุ่มข้อมูล เช่น 10 นาที, 30 นาที, 60 นาที"
     )
@@ -1131,7 +1131,7 @@ if 'trade_results_df' in st.session_state and \
     st.markdown("### 7. วิเคราะห์ตามเวลาออกจากเทรด (Exit Time)")
     bin_size_exit_time_input = st.number_input(
         "เลือกขนาด Bin สำหรับเวลาออกจากเทรด (นาที):", 
-        min_value=1, max_value=120, value=60, step=5, 
+        min_value=1, max_value=120, value=60, step=1, 
         key="bin_exit_time",
         help="ขนาดของแต่ละช่วงเวลาที่จะใช้ในการจัดกลุ่มข้อมูล"
     )
@@ -1299,7 +1299,7 @@ if 'trade_results_df' in st.session_state and \
     st.markdown("### 8. Heatmap ตามเวลาเข้าเทรด (Entry Time)")
     bin_size_heatmap_entry_input = st.number_input(
         "เลือกขนาด Bin สำหรับ Heatmap เวลาเข้าเทรด (นาที):", 
-        min_value=1, max_value=120, value=20, step=10, 
+        min_value=1, max_value=120, value=20, step=1, 
         key="bin_heatmap_entry",
         help="ขนาดของแต่ละช่วงเวลาที่จะใช้ในการจัดกลุ่มข้อมูลสำหรับ Heatmap"
     )
@@ -1310,7 +1310,7 @@ if 'trade_results_df' in st.session_state and \
     st.markdown("### 9. Heatmap ตามเวลาออกจากเทรด (Exit Time)")
     bin_size_heatmap_exit_input = st.number_input(
         "เลือกขนาด Bin สำหรับ Heatmap เวลาออกจากเทรด (นาที):", 
-        min_value=1, max_value=120, value=20, step=10, 
+        min_value=1, max_value=120, value=20, step=1, 
         key="bin_heatmap_exit",
         help="ขนาดของแต่ละช่วงเวลาที่จะใช้ในการจัดกลุ่มข้อมูลสำหรับ Heatmap"
     )
