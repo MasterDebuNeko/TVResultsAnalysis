@@ -128,7 +128,7 @@ def calc_r_multiple_and_risk(xls_path, stop_loss_pct):
              expected_cols_final = [
                 'Trade #', 'Entry Day', 'Entry HH:MM', 'Entry Time', 'Entry Signal',
                 'Exit Time', 'Exit Type',
-                'Profit USD', 'Run-up USD', 'Drawdown USD',
+                'P&L USD', 'Run-up USD', 'Drawdown USD',
                 'Risk USD', 'Profit(R)', 'MFE(R)', 'MAE(R)'
              ]
              empty_df = pd.DataFrame(columns=expected_cols_final)
@@ -179,7 +179,7 @@ def calc_r_multiple_and_risk(xls_path, stop_loss_pct):
             df_exit['Risk USD'] = np.nan
     elif 'Risk USD' not in df_exit.columns: df_exit['Risk USD'] = pd.Series(dtype=float) if not df_exit.empty else np.nan
 
-    calc_fields = [('Profit(R)', 'Profit USD'), ('MFE(R)', 'Run-up USD'), ('MAE(R)', 'Drawdown USD')]
+    calc_fields = [('Profit(R)', 'P&L USD'), ('MFE(R)', 'Run-up USD'), ('MAE(R)', 'Drawdown USD')]
     if not df_exit.empty:
         for r_col, src_col in calc_fields:
             if src_col not in df_exit.columns: raise KeyError(f"ไม่พบคอลัมน์ '{src_col}' ในข้อมูล Exit trades ซึ่งจำเป็นสำหรับคำนวณ '{r_col}'.")
@@ -233,11 +233,11 @@ def calc_r_multiple_and_risk(xls_path, stop_loss_pct):
         df_result.rename(columns=rename_cols_exit, inplace=True)
         if 'Exit Type' not in df_result.columns: df_result['Exit Type'] = np.nan
     else:
-        expected_cols_final = ['Trade #', 'Entry Day', 'Entry HH:MM', 'Entry Time', 'Entry Signal', 'Exit Time', 'Exit Type', 'Profit USD', 'Run-up USD', 'Drawdown USD', 'Risk USD', 'Profit(R)', 'MFE(R)', 'MAE(R)']
+        expected_cols_final = ['Trade #', 'Entry Day', 'Entry HH:MM', 'Entry Time', 'Entry Signal', 'Exit Time', 'Exit Type', 'P&L USD', 'Run-up USD', 'Drawdown USD', 'Risk USD', 'Profit(R)', 'MFE(R)', 'MAE(R)']
         df_result = pd.DataFrame(columns=expected_cols_final)
         for col in ['Entry Time', 'Exit Time']:
             if col in df_result.columns: df_result[col] = pd.to_datetime(df_result[col])
-    desired_columns = ['Trade #', 'Entry Day', 'Entry HH:MM', 'Entry Time', 'Entry Signal', 'Exit Time', 'Exit Type', 'Profit USD', 'Run-up USD', 'Drawdown USD', 'Risk USD', 'Profit(R)', 'MFE(R)', 'MAE(R)']
+    desired_columns = ['Trade #', 'Entry Day', 'Entry HH:MM', 'Entry Time', 'Entry Signal', 'Exit Time', 'Exit Type', 'P&L USD', 'Run-up USD', 'Drawdown USD', 'Risk USD', 'Profit(R)', 'MFE(R)', 'MAE(R)']
     for col in desired_columns:
         if col not in df_result.columns:
             df_result[col] = pd.NaT if 'Time' in col else np.nan
