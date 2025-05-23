@@ -148,7 +148,7 @@ def calc_r_multiple_and_risk(xls_path, stop_loss_pct):
     except KeyError: raise KeyError("ไม่พบคอลัมน์ 'Date/Time' ในชีท 'List of trades'.")
     # except Exception as e: raise ValueError(f"รูปแบบข้อมูลในคอลัมน์ 'Date/Time' ไม่ถูกต้อง: {e}") # Coerce handles this
 
-    for col in ['Price USD', 'Contracts']:
+    for col in ['Price USD', 'Quantity']:
         if not df_entry.empty:
             if col not in df_entry.columns: raise KeyError(f"ไม่พบคอลัมน์ '{col}' ในข้อมูล Entry trades.")
             df_entry[col] = df_entry[col].map(clean_number)
@@ -156,7 +156,7 @@ def calc_r_multiple_and_risk(xls_path, stop_loss_pct):
             df_exit[col] = df_exit[col].map(clean_number)
 
     if not df_entry.empty:
-        df_entry['Risk USD'] = (df_entry['Price USD'] * stop_loss_pct * df_entry['Contracts'] * point_value)
+        df_entry['Risk USD'] = (df_entry['Price USD'] * stop_loss_pct * df_entry['Quantity'] * point_value)
         if df_entry['Risk USD'].isnull().any():
             st.warning("⚠️ มีบางรายการ Entry trades ที่ไม่สามารถคำนวณ 'Risk USD' ได้.")
     else: df_entry['Risk USD'] = np.nan
